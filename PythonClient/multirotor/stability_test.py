@@ -60,7 +60,7 @@ while iteration < 10:
     start = time.time()
     while time.time() < start + 120:
         state = client.getMultirotorState()
-        x_val = state.kinematics_estimated.position.x_val
+        x_val = state.s_estimated.position.x_val
         y_val = state.kinematics_estimated.position.y_val
         z_val = state.kinematics_estimated.position.z_val
         x.add(x_val)

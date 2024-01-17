@@ -26,9 +26,11 @@ AObstacleGenerator::AObstacleGenerator()
         if (FJsonSerializer::Deserialize(Reader, JsonObject)) {
             FVector Location(JsonObject->GetNumberField("LocationX"), JsonObject->GetNumberField("LocationY"), JsonObject->GetNumberField("LocationZ"));
             FRotator Rotation(JsonObject->GetNumberField("RotationPitch"), JsonObject->GetNumberField("RotationYaw"), JsonObject->GetNumberField("RotationRoll"));
-            FVector Scale(JsonObject->GetNumberField("ScaleX"), JsonObject->GetNumberField("ScaleY"), JsonObject->GetNumberField("ScaleZ"));
+            FVector Scale(JsonObject->GetNumberField("ScaleX")*2.0f, JsonObject->GetNumberField("ScaleY")*2.0f, JsonObject->GetNumberField("ScaleZ")*2.0f);
             FTransform NewTransform(Rotation, Location, Scale);
             ActorTransforms.Add(NewTransform);
+            FString objectType(JsonObject->GetStringField("Type"));
+            ActorType.Add(objectType);
         }
     }
 }
@@ -37,9 +39,10 @@ AObstacleGenerator::AObstacleGenerator()
 void AObstacleGenerator::BeginPlay()
 {
     Super::BeginPlay();
-
     int count = 0;
-    for (const FTransform& Transform : ActorTransforms) {
+    for (int i = 0; i < ActorTransforms.Num(); ++i) {
+        const FTransform& Transform = ActorTransforms[i];
+        const FString& objectType = ActorType[i];
         // Spawn parameters
         count++;
         FActorSpawnParameters SpawnParams;
@@ -51,7 +54,19 @@ void AObstacleGenerator::BeginPlay()
 
         if (SpawnedCube) {
             // Use Unreal's default cube mesh
-            UStaticMesh* CubeMesh = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'")));
+            UStaticMesh* CubeMesh = NULL;
+            if (objectType == "Plane") {
+                CubeMesh = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'")));
+            }
+            else if (objectType == "Sphere") {
+                CubeMesh = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'")));
+            }
+            else if (objectType == "Cube") {
+                CubeMesh = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'")));
+            }
+            else if (objectType == "Cylinder") {
+                CubeMesh = Cast<UStaticMesh>(StaticLoadObject(UStaticMesh::StaticClass(), NULL, TEXT("StaticMesh'/Engine/BasicShapes/Cylinder.Cylinder'")));
+            }
 
             if (CubeMesh) {
                 // Set the cube mesh

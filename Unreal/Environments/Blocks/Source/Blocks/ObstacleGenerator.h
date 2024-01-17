@@ -24,6 +24,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-        TArray<FTransform> ActorTransforms;
+    TArray<FTransform> ActorTransforms;
+    TArray<FString> ActorType;
 
 };

@@ -97,6 +97,7 @@ class OrbitNavigator:
         ramptime = self.radius / 10
         self.start_time = time.time()        
 
+        print(self.iterations)
         while count < self.iterations:
             if self.snapshots > 0 and not (self.snapshot_index < self.snapshots):
                 break
@@ -114,9 +115,12 @@ class OrbitNavigator:
 
             # compute current angle
             pos = self.client.getMultirotorState().kinematics_estimated.position
+            vel = self.client.getMultirotorState().kinematics_estimated.linear_velocity
+            print("actual velocity = ", vel.x_val, vel.y_val, vel.z_val)
             dx = pos.x_val - self.center.x_val
             dy = pos.y_val - self.center.y_val
             actual_radius = math.sqrt((dx*dx) + (dy*dy))
+            print("radius = ", self.radius, actual_radius)
             angle_to_center = math.atan2(dy, dx)
 
             camera_heading = (angle_to_center - math.pi) * 180 / math.pi 
@@ -133,7 +137,8 @@ class OrbitNavigator:
                 print("completed {} orbits".format(count))
             
             self.camera_heading = camera_heading
-            self.client.moveByVelocityZAsync(vx, vy, z, 1, airsim.DrivetrainType.MaxDegreeOfFreedom, airsim.YawMode(False, camera_heading))
+            print("target velocity = ", vx, vy, "\n")
+            self.client.moveByVelocityZAsync(vx, vy, z, 1, airsim.DrivetrainType.MaxDegreeOfFreedom, airsim.YawMode(False, camera_heading)).join()
 
 
         self.client.moveToPositionAsync(start.x_val, start.y_val, z, 2).join()

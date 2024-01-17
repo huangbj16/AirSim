@@ -1,1 +1,7 @@
-{"LocationX":500.0, "LocationY":0.0, "LocationZ":0.0, "RotationPitch":0.0, "RotationYaw":0.0, "RotationRoll":0.0, "ScaleX":1.0, "ScaleY":1.0, "ScaleZ":1.0}
+{"Type":"Plane", "LocationX": 0, "LocationY": 500, "LocationZ": 0, "RotationPitch": 0.0, "RotationYaw": 0.0, "RotationRoll": -90.0, "ScaleX": 20.0, "ScaleY": 5.0, "ScaleZ": 5.0}
+{"Type":"Plane", "LocationX": 0, "LocationY": -500, "LocationZ": 0, "RotationPitch": 0.0, "RotationYaw": 0.0, "RotationRoll": 90.0, "ScaleX": 20.0, "ScaleY": 5.0, "ScaleZ": 5.0}
+{"Type":"Plane", "LocationX": 0, "LocationY": 0, "LocationZ": 500, "RotationPitch": 0.0, "RotationYaw": 0.0, "RotationRoll": 180.0, "ScaleX": 20.0, "ScaleY": 5.0, "ScaleZ": 5.0}
+{"Type":"Sphere", "LocationX": 200, "LocationY": 200, "LocationZ": 200, "RotationPitch": 0.0, "RotationYaw": 0.0, "RotationRoll": 0.0, "ScaleX": 1.0, "ScaleY": 1.0, "ScaleZ": 1.0}
+{"Type":"Cube", "LocationX": 400, "LocationY": -200, "LocationZ": 100, "RotationPitch": 0.0, "RotationYaw": 0.0, "RotationRoll": 0.0, "ScaleX": 1.0, "ScaleY": 1.0, "ScaleZ": 1.0}
+{"Type":"Sphere", "LocationX": 600, "LocationY": 100, "LocationZ": 300, "RotationPitch": 0.0, "RotationYaw": 0.0, "RotationRoll": 0.0, "ScaleX": 1.0, "ScaleY": 1.0, "ScaleZ": 1.0}
+{"Type":"Cylinder", "LocationX": 800, "LocationY": -300, "LocationZ": 0, "RotationPitch": 0.0, "RotationYaw": 0.0, "RotationRoll": 0.0, "ScaleX": 1.0, "ScaleY": 1.0, "ScaleZ": 5.0}
